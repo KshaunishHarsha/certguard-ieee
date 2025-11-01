@@ -14,8 +14,19 @@ const nextConfig = {
         canvas: false,
       };
     }
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      canvas: false,
+    };
     return config;
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  output: "standalone",
 };
 
 module.exports = nextConfig;

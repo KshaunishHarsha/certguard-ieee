@@ -5,15 +5,15 @@ const nextConfig = {
       bodySizeLimit: "5mb",
     },
   },
-  webpack: (config) => {
-    config.resolve.alias.canvas = false;
-    config.module.rules.push({
-      test: /pdf\.worker\.(min\.)?js/,
-      type: "asset/resource",
-      generator: {
-        filename: "static/worker/[hash][ext][query]",
-      },
-    });
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+        canvas: false,
+      };
+    }
     return config;
   },
 };
